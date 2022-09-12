@@ -19,7 +19,10 @@ function saveEntries(event) {
   var formInputValues = {
     title: $codeJournal.elements.title.value,
     photoUrl: $codeJournal.elements.photoUrl.value,
-    textArea: $codeJournal.elements.notes.value
+    textArea: $codeJournal.elements.notes.value,
+    entryNumber: data.nextEntryId
   };
-  return formInputValues;
+  data.nextEntryId++;
+
+  data.entries.push(formInputValues);
 }
