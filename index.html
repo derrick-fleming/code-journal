@@ -28,16 +28,18 @@
     <div data-view="entry-form" class="container">
       <form class="row">
         <h1 class="column-full">New Entry</h1>
-        <img src="images/placeholder-image-square.jpg" alt="Placeholder Icon" class="column-half">
+        <div class="column-half">
+          <img src="images/placeholder-image-square.jpg" alt="Placeholder Icon" class="placeholder-image">
+        </div>
         <div class="column-half">
           <label for="title">Title</label>
-          <input type="text" id="title" name="title" class="input-style" required="required">
+          <input required type="text" id="title" name="title" class="input-style">
           <label for="photoUrl">Photo URL</label>
-          <input type="url" id="photoUrl" name="photoUrl" class="input-style" required="required">
+          <input required type="url" id="photoUrl" name="photoUrl" class="input-style">
         </div>
         <div class="column-full">
           <label for="notes">Notes</label>
-          <textarea id="notes" class="input-style" required="required"></textarea>
+          <textarea required id="notes" class="input-style"></textarea>
           <button class="save-button">SAVE</button>
         </div>
       </form>
