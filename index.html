@@ -26,21 +26,21 @@
   </header>
   <main>
     <div data-view="entry-form" class="container">
-      <form class="row">
+      <form class="row" id="code-journal">
         <h1 class="column-full">New Entry</h1>
         <div class="column-half">
           <img src="images/placeholder-image-square.jpg" alt="Placeholder Icon" class="placeholder-image">
         </div>
         <div class="column-half">
-          <label for="title">Title</label>
-          <input required type="text" id="title" name="title" class="input-style">
-          <label for="photoUrl">Photo URL</label>
-          <input required type="url" id="photoUrl" name="photoUrl" class="input-style">
+          <label for="entry-title">Title</label>
+          <input required type="text" id="entry-title" name="title" class="input-style">
+          <label for="entry-photoUrl">Photo URL</label>
+          <input required type="url" id="entry-photoUrl" name="photoUrl" class="input-style">
         </div>
         <div class="column-full">
-          <label for="notes">Notes</label>
-          <textarea required id="notes" class="input-style"></textarea>
-          <button class="save-button">SAVE</button>
+          <label for="entry-notes">Notes</label>
+          <textarea required id="entry-notes" name="notes" class="input-style"></textarea>
+          <input type="submit" class="save-button" value="SAVE">
         </div>
       </form>
     </div>
