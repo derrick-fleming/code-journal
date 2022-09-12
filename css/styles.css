@@ -1,3 +1,65 @@
+body {
+  font-family: "Proza Libre", sans-serif;
+  background-color: rgb(240, 240, 240);
+}
+
 label {
   display: block;
+  line-height: 2;
+  font-weight: 500;
+}
+
+header {
+  background-color: rgb(85, 43, 129);
+}
+
+textarea {
+  height: 100px;
+  width: 100%;
+}
+
+.page-header {
+  line-height: 1;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+img {
+  height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  img {
+    height: 400px;
+  }
+}
+
+.input-style {
+  padding-left: 0.5rem;
+  line-height: 1.8;
+  border: 0.08rem solid rgb(205, 204, 205);
+  border-radius: 0.2rem;
+  margin-bottom: 1.3rem;
+  width: 100%;
+}
+
+.input-style:focus {
+  border: 0.08rem solid rgb(85, 43, 129);
+}
+
+.save-button {
+  font-family: "Proza Libre", sans-serif;
+  font-size: 1rem;
+  float: right;
+  line-height: 2;
+  background-color: rgb(85, 43, 129);
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  padding: 0 1rem;
 }
