@@ -4,15 +4,24 @@ var $photoUrlInput = document.querySelector("input[name='photoUrl']");
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
-function photoUpload(event) {
-  if (event.target.value) {
-    $placeHolderImage.setAttribute('src', $photoUrlInput.value);
-  } else {
-    $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
-  }
+function resetImage() {
+  $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
-$codeJournal.addEventListener('submit', saveEntries);
+function resetText() {
+  $codeJournal.elements.title.value = '';
+  $codeJournal.elements.photoUrl.value = '';
+  $codeJournal.elements.notes.value = '';
+
+}
+
+function photoUpload(event) {
+  if (event.target.value && event.target.checkValidity()) {
+    $placeHolderImage.setAttribute('src', $photoUrlInput.value);
+  } else {
+    resetImage();
+  }
+}
 
 function saveEntries(event) {
   event.preventDefault();
@@ -25,4 +34,8 @@ function saveEntries(event) {
   data.nextEntryId++;
 
   data.entries.push(formInputValues);
+  resetImage();
+  resetText();
 }
+
+$codeJournal.addEventListener('submit', saveEntries);
