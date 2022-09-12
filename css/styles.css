@@ -14,7 +14,7 @@ header {
 }
 
 textarea {
-  height: 100px;
+  height: 150px;
   width: 100%;
 }
 
@@ -26,8 +26,12 @@ textarea {
   letter-spacing: 0.5px;
 }
 
+h1 {
+  color: rgb(41, 41, 41);
+}
+
 img {
-  height: 300px;
+  height: 245px;
   object-fit: cover;
   border-radius: 5px;
   margin-bottom: 1rem;
@@ -42,14 +46,15 @@ img {
 .input-style {
   padding-left: 0.5rem;
   line-height: 1.8;
-  border: 0.08rem solid rgb(205, 204, 205);
+  border: 0.1rem solid rgb(205, 204, 205);
   border-radius: 0.2rem;
   margin-bottom: 1.3rem;
   width: 100%;
 }
 
 .input-style:focus {
-  border: 0.08rem solid rgb(85, 43, 129);
+  outline: 0.05rem solid rgb(85, 43, 129);
+  border: 0.1rem solid rgb(85, 43, 129);
 }
 
 .save-button {
@@ -62,4 +67,8 @@ img {
   border: 0;
   border-radius: 4px;
   padding: 0 1rem;
+}
+
+.save-button:hover {
+  cursor: pointer;
 }
