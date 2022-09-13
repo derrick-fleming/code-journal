@@ -1,7 +1,6 @@
 var $codeJournal = document.querySelector('#code-journal');
 var $placeHolderImage = document.querySelector('.placeholder-image');
 var $photoUrlInput = document.querySelector("input[name='photoUrl']");
-var dataModel = data;
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
@@ -19,29 +18,13 @@ function saveEntries(event) {
     title: $codeJournal.elements.title.value,
     photoUrl: $codeJournal.elements.photoUrl.value,
     textArea: $codeJournal.elements.notes.value,
-    entryNumber: dataModel.nextEntryId
+    entryNumber: data.nextEntryId
   };
-  dataModel.nextEntryId++;
-
-  dataModel.entries.push(formInputValues);
+  data.entries.unshift(formInputValues);
+  data.nextEntryId++;
 
   $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $codeJournal.elements.title.value = '';
-  $codeJournal.elements.photoUrl.value = '';
-  $codeJournal.elements.notes.value = '';
-
+  $codeJournal.reset();
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
-
-var previousData = localStorage.getItem('code-journal-storage');
-if (previousData !== 'null') {
-  dataModel = JSON.parse(previousData);
-}
-
-window.addEventListener('beforeunload', storeToLocalStorage);
-
-function storeToLocalStorage(event) {
-  var dataJSON = JSON.stringify(dataModel);
-  localStorage.setItem('code-journal-storage', dataJSON);
-}
