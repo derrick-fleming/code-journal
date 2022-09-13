@@ -20,6 +20,10 @@ header {
   letter-spacing: 0.5px;
 }
 
+.align-content {
+  align-items: center;
+}
+
 h1 {
   color: rgb(41, 41, 41);
 }
@@ -96,4 +100,14 @@ li {
   .journal-entry {
     padding-left: 2rem;
   }
+}
+
+.nav-link {
+  line-height: 1;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  padding-left: 1.5rem;
+  text-decoration: none;
 }
