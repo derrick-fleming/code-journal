@@ -2,6 +2,7 @@ var $codeJournal = document.querySelector('#code-journal');
 var $entries = document.querySelector('#entries');
 var $placeHolderImage = document.querySelector('.placeholder-image');
 var $photoUrlInput = document.querySelector("input[name='photoUrl']");
+var $noEntries = document.querySelector('#no-entries');
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
@@ -29,24 +30,14 @@ function saveEntries(event) {
 
   $codeJournal.className = 'row hidden';
   $entries.className = '';
+
+  $noEntries.className = 'column-full hidden';
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
 
-var $entriesLink = document.querySelector('.nav-link');
-var $newEntry = document.querySelector('.button.entry');
-
-$entriesLink.addEventListener('click', allEntriesView);
-$newEntry.addEventListener('click', newEntryView);
-
-function allEntriesView(event) {
-  $codeJournal.className = 'row hidden';
-  $entries.className = '';
-}
-
-function newEntryView(event) {
-  $codeJournal.className = 'row';
-  $entries.className = 'hidden';
+if (data.entries.length >= 1) {
+  $noEntries.className = 'column-full hidden';
 }
 
 function entryDomTree(entry) {
@@ -96,3 +87,19 @@ function prependJournal(event) {
 }
 
 $codeJournal.addEventListener('submit', prependJournal);
+
+var $entriesLink = document.querySelector('.nav-link');
+var $newEntry = document.querySelector('.button.entry');
+
+$entriesLink.addEventListener('click', allEntriesView);
+$newEntry.addEventListener('click', newEntryView);
+
+function allEntriesView(event) {
+  $codeJournal.className = 'row hidden';
+  $entries.className = '';
+}
+
+function newEntryView(event) {
+  $codeJournal.className = 'row';
+  $entries.className = 'hidden';
+}
