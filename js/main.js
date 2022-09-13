@@ -8,6 +8,8 @@ $photoUrlInput.addEventListener('input', photoUpload);
 function photoUpload(event) {
   if (event.target.value && event.target.checkValidity()) {
     $placeHolderImage.setAttribute('src', $photoUrlInput.value);
+  } else {
+    $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
   }
 }
 
