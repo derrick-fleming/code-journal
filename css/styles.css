@@ -32,12 +32,6 @@ h1 {
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
-  .placeholder-image {
-    height: 400px;
-  }
-}
-
 .input-style {
   padding-left: 0.5rem;
   line-height: 1.8;
@@ -53,18 +47,53 @@ h1 {
   border: 0.1rem solid rgb(85, 43, 129);
 }
 
-.save-button {
+.button {
   font-family: "Proza Libre", sans-serif;
   font-size: 1rem;
-  float: right;
   line-height: 2;
   background-color: rgb(85, 43, 129);
   color: white;
   border: 0;
   border-radius: 4px;
   padding: 0 1rem;
+  float: right;
 }
 
-.save-button:hover {
+.inline {
+  display: inline-block;
+}
+
+.entry {
+  margin-top: 1.5rem;
+}
+
+.button:hover {
   cursor: pointer;
+}
+
+.journal-entry {
+  padding-left: 0;
+}
+
+.journal-entry-title {
+  margin-top: 0;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+li {
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .placeholder-image {
+    height: 400px;
+  }
+
+  .journal-entry {
+    padding-left: 2rem;
+  }
 }
