@@ -32,6 +32,7 @@ function saveEntries(event) {
   $entries.className = '';
 
   $noEntries.className = 'column-full hidden';
+  data.view = 'entries';
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
@@ -94,12 +95,22 @@ var $newEntry = document.querySelector('.button.entry');
 $entriesLink.addEventListener('click', allEntriesView);
 $newEntry.addEventListener('click', newEntryView);
 
+if (data.view === 'entries') {
+  $codeJournal.className = 'row hidden';
+  data.view = 'entries';
+} else {
+  $codeJournal.className = 'row';
+  $entries.className = 'hidden';
+}
+
 function allEntriesView(event) {
   $codeJournal.className = 'row hidden';
+  data.view = 'entries';
   $entries.className = '';
 }
 
 function newEntryView(event) {
   $codeJournal.className = 'row';
   $entries.className = 'hidden';
+  data.view = 'entry-form';
 }
