@@ -4,19 +4,12 @@ body {
 }
 
 label {
-  display: block;
   line-height: 2;
   font-weight: 500;
 }
 
 header {
   background-color: rgb(85, 43, 129);
-}
-
-textarea {
-  height: 140px;
-  width: 100%;
-  font-family: "Proza Libre", sans-serif;
 }
 
 .page-header {
