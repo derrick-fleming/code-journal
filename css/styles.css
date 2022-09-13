@@ -16,6 +16,7 @@ header {
 textarea {
   height: 140px;
   width: 100%;
+  font-family: "Proza Libre", sans-serif;
 }
 
 .page-header {
@@ -51,6 +52,7 @@ h1 {
   border-radius: 0.2rem;
   margin-bottom: 0.8rem;
   width: 100%;
+  font-family: "Proza Libre", sans-serif;
 }
 
 .input-style:focus {

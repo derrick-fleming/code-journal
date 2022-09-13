@@ -4,22 +4,9 @@ var $photoUrlInput = document.querySelector("input[name='photoUrl']");
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
-function resetImage() {
-  $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
-}
-
-function resetText() {
-  $codeJournal.elements.title.value = '';
-  $codeJournal.elements.photoUrl.value = '';
-  $codeJournal.elements.notes.value = '';
-
-}
-
 function photoUpload(event) {
   if (event.target.value && event.target.checkValidity()) {
     $placeHolderImage.setAttribute('src', $photoUrlInput.value);
-  } else {
-    resetImage();
   }
 }
 
@@ -31,11 +18,26 @@ function saveEntries(event) {
     textArea: $codeJournal.elements.notes.value,
     entryNumber: data.nextEntryId
   };
-  data.nextEntryId++;
+  dataUpdate.nextEntryId++;
 
-  data.entries.push(formInputValues);
-  resetImage();
-  resetText();
+  dataUpdate.entries.push(formInputValues);
+
+  $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $codeJournal.elements.title.value = '';
+  $codeJournal.elements.photoUrl.value = '';
+  $codeJournal.elements.notes.value = '';
+
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
+
+var dataUpdate = data;
+var previousData = localStorage.getItem('code-journal-storage');
+dataUpdate = JSON.parse(previousData);
+
+window.addEventListener('beforeunload', storeToLocalStorage);
+
+function storeToLocalStorage(event) {
+  var dataJSON = JSON.stringify(dataUpdate);
+  localStorage.setItem('code-journal-storage', dataJSON);
+}
