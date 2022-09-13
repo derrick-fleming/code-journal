@@ -1,4 +1,5 @@
 var $codeJournal = document.querySelector('#code-journal');
+var $entries = document.querySelector('#entries');
 var $placeHolderImage = document.querySelector('.placeholder-image');
 var $photoUrlInput = document.querySelector("input[name='photoUrl']");
 
@@ -28,3 +29,20 @@ function saveEntries(event) {
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
+
+var $entriesLink = document.querySelector('.nav-link');
+var $newEntry = document.querySelector('.button.entry');
+
+$entriesLink.addEventListener('click', allEntriesView);
+
+function allEntriesView(event) {
+  $codeJournal.className = 'row hidden';
+  $entries.className = '';
+}
+
+$newEntry.addEventListener('click', newEntryView);
+
+function newEntryView(event) {
+  $codeJournal.className = 'row';
+  $entries.className = 'hidden';
+}
