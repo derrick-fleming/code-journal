@@ -143,6 +143,7 @@ function allEntriesView(event) {
   data.view = 'entries';
   $entries.className = '';
 }
+var $delete = document.querySelector('.delete.hidden');
 
 function newEntryView(event) {
   $codeJournal.className = 'row';
@@ -151,6 +152,8 @@ function newEntryView(event) {
 
   $codeJournal.reset();
   $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+  $delete.className = 'delete hidden';
 
 }
 
@@ -177,4 +180,5 @@ function editEntries(event) {
   $codeJournal.elements.photoUrl.value = data.editing.photoUrl;
   $placeHolderImage.setAttribute('src', data.editing.photoUrl);
   $codeJournal.elements.notes.value = data.editing.textArea;
+  $delete.className = 'delete';
 }

@@ -128,3 +128,12 @@ a {
   cursor: pointer;
   color: rgb(85, 43, 129);
 }
+
+.delete {
+  color: rgb(223, 61, 62);
+  text-decoration: underline;
+}
+
+.delete:hover {
+  cursor: pointer;
+}
