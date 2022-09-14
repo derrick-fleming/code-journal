@@ -182,3 +182,14 @@ function editEntries(event) {
   $codeJournal.elements.notes.value = data.editing.textArea;
   $delete.className = 'delete';
 }
+
+var $deleteEntry = document.querySelector('.delete');
+var $overlay = document.querySelector('.overlay.hidden');
+var $modalContainer = document.querySelector('.modal-container.hidden');
+
+$deleteEntry.addEventListener('click', deleteModuleFunction);
+
+function deleteModuleFunction(event) {
+  $overlay.className = 'overlay';
+  $modalContainer.className = 'modal-container';
+}
