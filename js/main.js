@@ -16,13 +16,29 @@ function photoUpload(event) {
 
 function saveEntries(event) {
   event.preventDefault();
+
   var formInputValues = {
     title: $codeJournal.elements.title.value,
     photoUrl: $codeJournal.elements.photoUrl.value,
-    textArea: $codeJournal.elements.notes.value,
-    entryNumber: data.nextEntryId
+    textArea: $codeJournal.elements.notes.value
   };
-  data.entries.unshift(formInputValues);
+
+  if (data.editing === null) {
+    formInputValues.entryNumber = data.nextEntryId;
+  } else {
+    formInputValues.entryNumber = data.editing.entryNumber;
+  }
+
+  if (data.editing !== null) {
+    for (var index = 0; index < data.entries.length; index++) {
+      if (data.editing.entryNumber === data.entries[index].entryNumber) {
+        data.entries[index] = formInputValues;
+      }
+    }
+  } else {
+    data.entries.unshift(formInputValues);
+  }
+
   data.nextEntryId++;
 
   $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
@@ -33,6 +49,25 @@ function saveEntries(event) {
 
   $noEntries.className = 'column-full hidden';
   data.view = 'entries';
+
+  if (data.editing === null) {
+    $ul.prepend(entryDomTree(data.entries[0]));
+    return;
+  }
+
+  var $liReplace = document.querySelectorAll('li');
+  for (var indexLi = 0; indexLi < $liReplace.length; indexLi++) {
+    if (Number($liReplace[indexLi].dataset.entryId) === data.editing.entryNumber) {
+      for (var y = 0; y < data.entries.length; y++) {
+        if (data.entries[y].entryNumber === (Number($liReplace[indexLi].dataset.entryId))) {
+          $liReplace[indexLi].replaceWith(entryDomTree(data.entries[y]));
+          break;
+        }
+      }
+    }
+  }
+  data.editing = null;
+
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
@@ -60,15 +95,21 @@ function entryDomTree(entry) {
   $textDiv.className = 'column-half journal-entry';
 
   var $entryHeading = document.createElement('h2');
-  $entryHeading.className = 'journal-entry-title';
+  $entryHeading.className = 'journal-entry-title inline';
   $entryHeading.textContent = entry.title;
+
+  var $editIcon = document.createElement('a');
+  $editIcon.className = 'icon fa-sharp fa-solid fa-pen';
 
   var $entryText = document.createElement('p');
   $entryText.textContent = entry.textArea;
 
   $textDiv.appendChild($entryHeading);
+  $textDiv.appendChild($editIcon);
   $textDiv.appendChild($entryText);
   $li.appendChild($textDiv);
+
+  $li.setAttribute('data-entry-id', entry.entryNumber);
 
   return $li;
 
@@ -82,12 +123,6 @@ function appendJournal(event) {
     $ul.appendChild(entryDomTree(data.entries[i]));
   }
 }
-
-function prependJournal(event) {
-  $ul.prepend(entryDomTree(data.entries[0]));
-}
-
-$codeJournal.addEventListener('submit', prependJournal);
 
 var $entriesLink = document.querySelector('.nav-link');
 var $newEntry = document.querySelector('.button.entry');
@@ -113,4 +148,33 @@ function newEntryView(event) {
   $codeJournal.className = 'row';
   $entries.className = 'hidden';
   data.view = 'entry-form';
+
+  $codeJournal.reset();
+  $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+}
+
+$ul.addEventListener('click', editEntries);
+
+function editEntries(event) {
+  if (event.target.tagName === 'A') {
+    $codeJournal.className = 'row';
+    $entries.className = 'hidden';
+    data.view = 'entry-form';
+  }
+
+  var dataEntry = event.target.closest('li');
+  var closestId = dataEntry.dataset.entryId;
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (Number(closestId) === data.entries[i].entryNumber) {
+      data.editing = data.entries[i];
+      break;
+    }
+  }
+
+  $codeJournal.elements.title.value = data.editing.title;
+  $codeJournal.elements.photoUrl.value = data.editing.photoUrl;
+  $placeHolderImage.setAttribute('src', data.editing.photoUrl);
+  $codeJournal.elements.notes.value = data.editing.textArea;
 }
