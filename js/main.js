@@ -120,3 +120,13 @@ function newEntryView(event) {
   $entries.className = 'hidden';
   data.view = 'entry-form';
 }
+
+$ul.addEventListener('click', editEntries);
+
+function editEntries(event) {
+  if (event.target.tagName === 'A') {
+    $codeJournal.className = 'row';
+    $entries.className = 'hidden';
+    data.view = 'entry-form';
+  }
+}
