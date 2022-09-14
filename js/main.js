@@ -148,6 +148,10 @@ function newEntryView(event) {
   $codeJournal.className = 'row';
   $entries.className = 'hidden';
   data.view = 'entry-form';
+
+  $codeJournal.reset();
+  $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+
 }
 
 $ul.addEventListener('click', editEntries);
