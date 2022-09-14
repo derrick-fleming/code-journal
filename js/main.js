@@ -129,4 +129,14 @@ function editEntries(event) {
     $entries.className = 'hidden';
     data.view = 'entry-form';
   }
+
+  var dataEntry = event.target.closest('li');
+  var closestId = dataEntry.dataset.entryId;
+
+  for (var i = 0; i < data.entries.length; i++) {
+    if (Number(closestId) === data.entries[i].entryNumber) {
+      data.editing = data.entries[i];
+      break;
+    }
+  }
 }
