@@ -80,6 +80,7 @@ h1 {
 
 .journal-entry-title {
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 .no-entry-text {
@@ -115,4 +116,15 @@ a {
   font-weight: 400;
   letter-spacing: 0.5px;
   padding-left: 1.5rem;
+}
+
+.icon {
+  color: rgb(113, 87, 140);
+  float: right;
+  font-size: 1.6rem;
+}
+
+.icon:hover {
+  cursor: pointer;
+  color: rgb(85, 43, 129);
 }

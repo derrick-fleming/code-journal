@@ -60,13 +60,17 @@ function entryDomTree(entry) {
   $textDiv.className = 'column-half journal-entry';
 
   var $entryHeading = document.createElement('h2');
-  $entryHeading.className = 'journal-entry-title';
+  $entryHeading.className = 'journal-entry-title inline';
   $entryHeading.textContent = entry.title;
+
+  var $editIcon = document.createElement('a');
+  $editIcon.className = 'icon fa-sharp fa-solid fa-pen';
 
   var $entryText = document.createElement('p');
   $entryText.textContent = entry.textArea;
 
   $textDiv.appendChild($entryHeading);
+  $textDiv.appendChild($editIcon);
   $textDiv.appendChild($entryText);
   $li.appendChild($textDiv);
 
