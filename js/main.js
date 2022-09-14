@@ -74,6 +74,8 @@ function entryDomTree(entry) {
   $textDiv.appendChild($entryText);
   $li.appendChild($textDiv);
 
+  $li.setAttribute('data-entry-id', entry.entryNumber);
+
   return $li;
 
 }
