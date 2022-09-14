@@ -193,3 +193,12 @@ function deleteModuleFunction(event) {
   $overlay.className = 'overlay';
   $modalContainer.className = 'modal-container';
 }
+
+var $cancelButton = document.querySelector('.button.cancel');
+
+$cancelButton.addEventListener('click', hideModal);
+
+function hideModal(event) {
+  $modalContainer.className = 'modal-container hidden';
+  $overlay.className = 'overlay hidden';
+}
