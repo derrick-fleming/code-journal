@@ -16,13 +16,24 @@ function photoUpload(event) {
 
 function saveEntries(event) {
   event.preventDefault();
+
   var formInputValues = {
     title: $codeJournal.elements.title.value,
     photoUrl: $codeJournal.elements.photoUrl.value,
     textArea: $codeJournal.elements.notes.value,
     entryNumber: data.nextEntryId
   };
-  data.entries.unshift(formInputValues);
+
+  if (data.editing !== null) {
+    for (var index = 0; index < data.entries.length; index++) {
+      if (data.editing.entryNumber === data.entries[index].entryNumber) {
+        data.entries[index] = formInputValues;
+      }
+    }
+  } else {
+    data.entries.unshift(formInputValues);
+  }
+  data.editing = null;
   data.nextEntryId++;
 
   $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
