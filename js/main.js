@@ -20,9 +20,14 @@ function saveEntries(event) {
   var formInputValues = {
     title: $codeJournal.elements.title.value,
     photoUrl: $codeJournal.elements.photoUrl.value,
-    textArea: $codeJournal.elements.notes.value,
-    entryNumber: data.nextEntryId
+    textArea: $codeJournal.elements.notes.value
   };
+
+  if (data.editing === null) {
+    formInputValues.entryNumber = data.nextEntryId;
+  } else {
+    formInputValues.entryNumber = data.editing.entryNumber;
+  }
 
   if (data.editing !== null) {
     for (var index = 0; index < data.entries.length; index++) {
@@ -33,7 +38,7 @@ function saveEntries(event) {
   } else {
     data.entries.unshift(formInputValues);
   }
-  data.editing = null;
+
   data.nextEntryId++;
 
   $placeHolderImage.setAttribute('src', 'images/placeholder-image-square.jpg');
@@ -44,6 +49,25 @@ function saveEntries(event) {
 
   $noEntries.className = 'column-full hidden';
   data.view = 'entries';
+
+  if (data.editing === null) {
+    $ul.prepend(entryDomTree(data.entries[0]));
+    return;
+  }
+
+  var $liReplace = document.querySelectorAll('li');
+  for (var indexLi = 0; indexLi < $liReplace.length; indexLi++) {
+    if (Number($liReplace[indexLi].dataset.entryId) === data.editing.entryNumber) {
+      for (var y = 0; y < data.entries.length; y++) {
+        if (data.entries[y].entryNumber === (Number($liReplace[indexLi].dataset.entryId))) {
+          $liReplace[indexLi].replaceWith(entryDomTree(data.entries[y]));
+          break;
+        }
+      }
+    }
+  }
+  data.editing = null;
+
 }
 
 $codeJournal.addEventListener('submit', saveEntries);
@@ -99,12 +123,6 @@ function appendJournal(event) {
     $ul.appendChild(entryDomTree(data.entries[i]));
   }
 }
-
-function prependJournal(event) {
-  $ul.prepend(entryDomTree(data.entries[0]));
-}
-
-$codeJournal.addEventListener('submit', prependJournal);
 
 var $entriesLink = document.querySelector('.nav-link');
 var $newEntry = document.querySelector('.button.entry');
