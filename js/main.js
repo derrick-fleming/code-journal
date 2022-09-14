@@ -139,4 +139,9 @@ function editEntries(event) {
       break;
     }
   }
+
+  $codeJournal.elements.title.value = data.editing.title;
+  $codeJournal.elements.photoUrl.value = data.editing.photoUrl;
+  $placeHolderImage.setAttribute('src', data.editing.photoUrl);
+  $codeJournal.elements.notes.value = data.editing.textArea;
 }
