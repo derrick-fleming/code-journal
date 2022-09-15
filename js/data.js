@@ -6,9 +6,8 @@ var data = {
   editing: null,
   nextEntryId: 1
 };
-
 var previousData = localStorage.getItem('code-journal-storage');
-if (previousData !== 'null') {
+if (previousData !== null) {
   data = JSON.parse(previousData);
 }
 
