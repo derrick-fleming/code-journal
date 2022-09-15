@@ -132,7 +132,7 @@ $newEntry.addEventListener('click', newEntryView);
 
 if (data.view === 'entries') {
   $codeJournal.className = 'row hidden';
-  data.view = 'entries';
+  $entries.className = '';
 } else {
   $codeJournal.className = 'row';
   $entries.className = 'hidden';
@@ -188,7 +188,6 @@ var $overlay = document.querySelector('.overlay.hidden');
 var $modalContainer = document.querySelector('.modal-container.hidden');
 
 $deleteEntry.addEventListener('click', deleteModulePopUp);
-
 function deleteModulePopUp(event) {
   $overlay.className = 'overlay';
   $modalContainer.className = 'modal-container';
@@ -197,16 +196,13 @@ function deleteModulePopUp(event) {
 var $cancelButton = document.querySelector('.button.cancel');
 
 $cancelButton.addEventListener('click', hideModal);
-
 function hideModal(event) {
   $modalContainer.className = 'modal-container hidden';
   $overlay.className = 'overlay hidden';
 }
 
 var $confirmButton = document.querySelector('.button.confirm');
-
 $confirmButton.addEventListener('click', deleteEntry);
-
 function deleteEntry(event) {
   var $liDelete = document.querySelectorAll('li');
   for (var indexLi = 0; indexLi < $liDelete.length; indexLi++) {
@@ -215,10 +211,9 @@ function deleteEntry(event) {
       break;
     }
   }
-
   for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
     if (data.entries[dataIndex].entryNumber === data.editing.entryNumber) {
-      data.entries.splice(data.entries[dataIndex - 1], 1);
+      data.entries.splice(dataIndex, 1);
     }
   }
 

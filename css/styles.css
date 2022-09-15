@@ -73,6 +73,7 @@ h1 {
 
 .button:hover {
   cursor: pointer;
+  background-color: rgb(70, 35, 109);
 }
 
 .journal-entry {
@@ -94,16 +95,6 @@ p {
 
 li {
   margin-bottom: 2rem;
-}
-
-@media screen and (min-width: 768px) {
-  .placeholder-image {
-    height: 400px;
-  }
-
-  .journal-entry {
-    padding-left: 2rem;
-  }
 }
 
 a {
@@ -137,31 +128,32 @@ a {
 
 .delete:hover {
   cursor: pointer;
+  color: rgb(206, 56, 56);
 }
 
 .modal-container {
-  width: 27rem;
+  width: 23rem;
   background-color: rgb(255, 255, 255);
   height: 9rem;
   padding-top: 1rem;
   border-radius: 4px;
-  position: fixed;
+  position: absolute;
   top: 15rem;
-  box-shadow: 0 4px 4px rgb(57, 57, 57);
+  box-shadow: 0 4px 8px rgb(57, 57, 57);
 }
 
 .modal-text {
   text-align: center;
   margin-bottom: 2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .cancel {
-  background-color: rgb(182, 182, 182);
+  background-color: rgb(206, 206, 206);
   color: rgb(41, 41, 41);
-  font-weight: 600;
+  font-weight: 500;
   float: left;
-  line-height: 2;
   margin-left: 1rem;
 }
 
@@ -178,4 +170,22 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.cancel:hover {
+  background-color: rgb(189, 189, 189);
+}
+
+.confirm:hover {
+  background-color: rgb(206, 56, 56);
+}
+
+@media screen and (min-width: 768px) {
+  .placeholder-image {
+    height: 400px;
+  }
+
+  .journal-entry {
+    padding-left: 2rem;
+  }
 }
