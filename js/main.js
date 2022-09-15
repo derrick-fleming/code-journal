@@ -228,3 +228,16 @@ function deleteEntry(event) {
   }
   data.editing = null;
 }
+
+var $searchForm = document.querySelector('.form-container');
+var $searchBar = document.querySelector('.search-row');
+
+$searchBar.addEventListener('focus', outlineBox);
+function outlineBox(event) {
+  $searchForm.className = 'form-container search-focus';
+}
+
+$searchBar.addEventListener('blur', noOutline);
+function noOutline(event) {
+  $searchForm.className = 'form-container';
+}
