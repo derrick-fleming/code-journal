@@ -229,15 +229,73 @@ function deleteEntry(event) {
   data.editing = null;
 }
 
-var $searchForm = document.querySelector('.form-container');
+// Focus Functions
+
+var $searchFormContainer = document.querySelector('.form-container');
 var $searchBar = document.querySelector('.search-row');
 
 $searchBar.addEventListener('focus', outlineBox);
 function outlineBox(event) {
-  $searchForm.className = 'form-container search-focus';
+  $searchFormContainer.className = 'form-container search-focus';
 }
 
 $searchBar.addEventListener('blur', noOutline);
 function noOutline(event) {
-  $searchForm.className = 'form-container';
+  $searchFormContainer.className = 'form-container';
+}
+
+// Search Functions
+
+var $searchForm = document.querySelector('#search-bar-form');
+$searchForm.addEventListener('submit', filterSearchResults);
+
+function filterSearchResults(event) {
+  event.preventDefault();
+  var filterData = $searchForm.elements.search.value;
+  filterData = filterData.toLowerCase();
+
+  var $li = document.querySelectorAll('li');
+
+  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
+    var title = data.entries[dataIndex].title.toLowerCase();
+    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
+    if (!(title.includes(filterData)) || !textEntry.includes(filterData)) {
+      for (var indexLi = 0; indexLi < $li.length; indexLi++) {
+        if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $li[indexLi].className = 'row hidden';
+        }
+      }
+    } else {
+      for (var index = 0; index < $li.length; index++) {
+        if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $li[index].className = 'row';
+        }
+      }
+    }
+  }
+}
+
+$searchForm.addEventListener('input', liveFilterSearch);
+
+function liveFilterSearch(event) {
+  var $li = document.querySelectorAll('li');
+  var liveKey = event.target.value.toLowerCase();
+
+  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
+    var title = data.entries[dataIndex].title.toLowerCase();
+    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
+    if (!(title.includes(liveKey)) || !textEntry.includes(liveKey)) {
+      for (var indexLi = 0; indexLi < $li.length; indexLi++) {
+        if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $li[indexLi].className = 'row hidden';
+        }
+      }
+    } else {
+      for (var index = 0; index < $li.length; index++) {
+        if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $li[index].className = 'row';
+        }
+      }
+    }
+  }
 }

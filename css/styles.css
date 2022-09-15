@@ -37,21 +37,6 @@ h1 {
   width: 100%;
 }
 
-.input-style {
-  padding-left: 0.5rem;
-  line-height: 1.8;
-  border: 0.1rem solid rgb(205, 204, 205);
-  border-radius: 0.2rem;
-  margin-bottom: 0.8rem;
-  width: 100%;
-  font-family: "Proza Libre", sans-serif;
-}
-
-.input-style:focus, {
-  outline: 0.05rem solid rgb(85, 43, 129);
-  border: 0.1rem solid rgb(85, 43, 129);
-}
-
 .button {
   font-size: 1rem;
   line-height: 2;
@@ -179,6 +164,7 @@ a {
   background-color: white;
   border: 0.1rem solid rgb(205, 204, 205);
   border-radius: 0.2rem;
+  margin-bottom: 4rem;
 }
 
 .search-row {
@@ -226,4 +212,19 @@ a {
 .icon-search:hover {
   cursor: pointer;
   color: rgb(85, 43, 129);
+}
+
+.input-style {
+  padding-left: 0.5rem;
+  line-height: 1.8;
+  border: 0.1rem solid rgb(205, 204, 205);
+  border-radius: 0.2rem;
+  margin-bottom: 0.8rem;
+  width: 100%;
+  font-family: "Proza Libre", sans-serif;
+}
+
+.input-style:focus, {
+  outline: 0.05rem solid rgb(85, 43, 129);
+  border: 0.1rem solid rgb(85, 43, 129);
 }
