@@ -4,6 +4,7 @@ var $placeHolderImage = document.querySelector('.placeholder-image');
 var $photoUrlInput = document.querySelector("input[name='photoUrl']");
 var $noEntries = document.querySelector('#no-entries');
 var $searchForm = document.querySelector('#search-bar-form');
+var $clearFormLink = document.querySelector('.clear.hidden');
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
@@ -148,6 +149,8 @@ function allEntriesView(event) {
   for (var index = 0; index < $li.length; index++) {
     $li[index].className = 'row';
   }
+  $noSearch.className = 'column-full hidden';
+
 }
 
 var $delete = document.querySelector('.delete.hidden');
@@ -266,7 +269,7 @@ function filterSearchResults(event) {
   for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
     var title = data.entries[dataIndex].title.toLowerCase();
     var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    if (!(title.includes(filterData)) || !textEntry.includes(filterData)) {
+    if (!(title.includes(filterData)) && !textEntry.includes(filterData)) {
       for (var indexLi = 0; indexLi < $li.length; indexLi++) {
         if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
           $li[indexLi].className = 'row hidden';
@@ -280,6 +283,45 @@ function filterSearchResults(event) {
       }
     }
   }
+  hiddenList();
+}
+
+$searchForm.addEventListener('input', liveFilterSearch);
+
+function liveFilterSearch(event) {
+  if ($searchForm.elements.search.value === '') {
+    $clearFormLink.className = 'clear hidden';
+  } else {
+    $clearFormLink.className = 'clear';
+  }
+
+  var $li = document.querySelectorAll('li');
+  var liveKey = event.target.value.toLowerCase();
+
+  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
+    var title = data.entries[dataIndex].title.toLowerCase();
+    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
+    if (!title.includes(liveKey) && !textEntry.includes(liveKey)) {
+      for (var indexLi = 0; indexLi < $li.length; indexLi++) {
+        if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $li[indexLi].className = 'row hidden';
+          break;
+        }
+      }
+    } else {
+      for (var index = 0; index < $li.length; index++) {
+        if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $li[index].className = 'row';
+        }
+      }
+    }
+  }
+  hiddenList();
+
+}
+
+function hiddenList() {
+  var $li = document.querySelectorAll('li');
   var $hiddenList = document.querySelectorAll('li.row.hidden');
   if ($hiddenList.length === $li.length) {
     $noSearch.className = 'column-full';
@@ -288,34 +330,15 @@ function filterSearchResults(event) {
   }
 }
 
-$searchForm.addEventListener('input', liveFilterSearch);
+$clearFormLink.addEventListener('click', clearSearchBar);
 
-function liveFilterSearch(event) {
+function clearSearchBar(event) {
+  $clearFormLink.className = 'clear hidden';
   var $li = document.querySelectorAll('li');
-  var liveKey = event.target.value.toLowerCase();
-
-  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
-    var title = data.entries[dataIndex].title.toLowerCase();
-    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    if (!(title.includes(liveKey)) || !textEntry.includes(liveKey)) {
-      for (var indexLi = 0; indexLi < $li.length; indexLi++) {
-        if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $li[indexLi].className = 'row hidden';
-        }
-      }
-    } else {
-      for (var index = 0; index < $li.length; index++) {
-        if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $li[index].className = 'row';
-        }
-      }
-    }
+  for (var index = 0; index < $li.length; index++) {
+    $li[index].className = 'row';
   }
+  $searchForm.reset();
+  hiddenList();
 
-  var $hiddenList = document.querySelectorAll('li.row.hidden');
-  if ($hiddenList.length === $li.length) {
-    $noSearch.className = 'column-full';
-  } else {
-    $noSearch.className = 'column-full hidden';
-  }
 }

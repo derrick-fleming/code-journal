@@ -116,12 +116,19 @@ a {
   font-size: 1.6rem;
 }
 
-.delete {
+.delete,
+.clear {
   color: rgb(223, 61, 62);
   text-decoration: underline;
 }
 
-.delete:hover {
+.clear {
+  margin-top: 1rem;
+  float: right;
+}
+
+.delete:hover,
+.clear:hover {
   cursor: pointer;
   color: rgb(206, 56, 56);
 }
@@ -179,6 +186,9 @@ a {
   background-color: white;
   border: 0.1rem solid rgb(205, 204, 205);
   border-radius: 0.2rem;
+}
+
+.space {
   margin-bottom: 4rem;
 }
 
