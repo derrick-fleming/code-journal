@@ -263,22 +263,31 @@ function filterSearchResults(event) {
   event.preventDefault();
   var filterData = $searchForm.elements.search.value;
   filterData = filterData.toLowerCase();
+  filterData = filterData.split(' ');
 
   var $li = document.querySelectorAll('li');
 
+  for (var invisibleLi = 0; invisibleLi < $li.length; invisibleLi++) {
+    $li[invisibleLi].className = 'row hidden';
+  }
+
   for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
     var title = data.entries[dataIndex].title.toLowerCase();
+    title = title.split(' ');
     var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    if (!(title.includes(filterData)) && !textEntry.includes(filterData)) {
-      for (var indexLi = 0; indexLi < $li.length; indexLi++) {
-        if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $li[indexLi].className = 'row hidden';
+    textEntry = textEntry.split(' ');
+    for (var filterIndex = 0; filterIndex < filterData.length; filterIndex++) {
+      if (!title.includes(filterData[filterIndex]) || !textEntry.includes(filterData[filterIndex])) {
+        for (var indexLi = 0; indexLi < $li.length; indexLi++) {
+          if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+            $li[indexLi].className = 'row';
+          }
         }
-      }
-    } else {
-      for (var index = 0; index < $li.length; index++) {
-        if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $li[index].className = 'row';
+      } else {
+        for (var index = 0; index < $li.length; index++) {
+          if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber && $li[index].className !== 'row') {
+            $li[index].className = 'row hidden';
+          }
         }
       }
     }
@@ -295,37 +304,23 @@ function liveFilterSearch(event) {
     $clearFormLink.className = 'clear';
   }
 
-  var $li = document.querySelectorAll('li');
   var liveKey = event.target.value.toLowerCase();
 
-  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
-    var title = data.entries[dataIndex].title.toLowerCase();
-    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    if (!title.includes(liveKey) && !textEntry.includes(liveKey)) {
-      for (var indexLi = 0; indexLi < $li.length; indexLi++) {
-        if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $li[indexLi].className = 'row hidden';
-          break;
-        }
-      }
-    } else {
-      for (var index = 0; index < $li.length; index++) {
-        if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $li[index].className = 'row';
-        }
-      }
-    }
-  }
+  searchQuery(liveKey);
   hiddenList();
 
 }
 
 function hiddenList() {
-  var $li = document.querySelectorAll('li');
+  var $liHidden = document.querySelectorAll('li');
   var $hiddenList = document.querySelectorAll('li.row.hidden');
-  if ($hiddenList.length === $li.length) {
+  if ($hiddenList.length === $liHidden.length) {
     $noSearch.className = 'column-full';
   } else {
+    $noSearch.className = 'column-full hidden';
+  }
+
+  if ($liHidden.length === 0) {
     $noSearch.className = 'column-full hidden';
   }
 }
@@ -341,4 +336,26 @@ function clearSearchBar(event) {
   $searchForm.reset();
   hiddenList();
 
+}
+
+function searchQuery(argument) {
+  var $liSearch = document.querySelectorAll('li');
+
+  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
+    var title = data.entries[dataIndex].title.toLowerCase();
+    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
+    if (!title.includes(argument) && !textEntry.includes(argument)) {
+      for (var indexLi = 0; indexLi < $liSearch.length; indexLi++) {
+        if (Number($liSearch[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $liSearch[indexLi].className = 'row hidden';
+        }
+      }
+    } else {
+      for (var index = 0; index < $liSearch.length; index++) {
+        if (Number($liSearch[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+          $liSearch[index].className = 'row';
+        }
+      }
+    }
+  }
 }
