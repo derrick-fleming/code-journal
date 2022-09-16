@@ -273,20 +273,12 @@ function filterSearchResults(event) {
 
   for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
     var title = data.entries[dataIndex].title.toLowerCase();
-    title = title.split(' ');
     var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    textEntry = textEntry.split(' ');
     for (var filterIndex = 0; filterIndex < filterData.length; filterIndex++) {
-      if (!title.includes(filterData[filterIndex]) || !textEntry.includes(filterData[filterIndex])) {
+      if (title.includes(filterData[filterIndex]) || textEntry.includes(filterData[filterIndex])) {
         for (var indexLi = 0; indexLi < $li.length; indexLi++) {
           if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
             $li[indexLi].className = 'row';
-          }
-        }
-      } else {
-        for (var index = 0; index < $li.length; index++) {
-          if (Number($li[index].dataset.entryId) === data.entries[dataIndex].entryNumber && $li[index].className !== 'row') {
-            $li[index].className = 'row hidden';
           }
         }
       }
