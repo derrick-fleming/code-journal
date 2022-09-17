@@ -110,7 +110,6 @@ a {
 
 .clear {
   margin-top: 1rem;
-  float: right;
 }
 
 .delete:hover,
@@ -214,6 +213,11 @@ a {
   color: rgb(85, 43, 129);
 }
 
+.clear-box {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media screen and (min-width: 768px) {
   .placeholder-image {
     height: 400px;
@@ -226,9 +230,4 @@ a {
   .search-row {
     border-right: 0;
   }
-}
-
-.clear-box {
-  display: flex;
-  justify-content: flex-end;
 }

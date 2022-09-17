@@ -5,6 +5,9 @@ var $photoUrlInput = document.querySelector("input[name='photoUrl']");
 var $noEntries = document.querySelector('#no-entries');
 var $searchForm = document.querySelector('#search-bar-form');
 var $clearFormLink = document.querySelector('.clear.hidden');
+var $entriesLink = document.querySelector('.nav-link');
+var $newEntry = document.querySelector('.button.entry');
+var $ul = document.querySelector('ul');
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
@@ -117,7 +120,6 @@ function entryDomTree(entry) {
 
 }
 
-var $ul = document.querySelector('ul');
 document.addEventListener('DOMContentLoaded', appendJournal);
 
 function appendJournal(event) {
@@ -125,9 +127,6 @@ function appendJournal(event) {
     $ul.appendChild(entryDomTree(data.entries[i]));
   }
 }
-
-var $entriesLink = document.querySelector('.nav-link');
-var $newEntry = document.querySelector('.button.entry');
 
 $entriesLink.addEventListener('click', allEntriesView);
 $newEntry.addEventListener('click', newEntryView);
@@ -239,22 +238,16 @@ function deleteEntry(event) {
   data.editing = null;
 }
 
-// Focus Functions
-
 var $searchFormContainer = document.querySelector('.form-container');
 var $searchBar = document.querySelector('.search-row');
 
-$searchBar.addEventListener('focus', outlineBox);
-function outlineBox(event) {
+$searchBar.addEventListener('focus', function (event) {
   $searchFormContainer.className = 'form-container search-focus';
-}
+});
 
-$searchBar.addEventListener('blur', noOutline);
-function noOutline(event) {
+$searchBar.addEventListener('blur', function (event) {
   $searchFormContainer.className = 'form-container';
-}
-
-// Search Functions
+});
 
 $searchForm.addEventListener('submit', filterSearchResults);
 
@@ -270,15 +263,12 @@ function filterSearchResults(event) {
 
 $searchForm.addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
-    event.preventDefault();
     filterSearchResults(event);
   }
 });
 
 var $noSearch = document.querySelector('#no-search');
-$searchForm.addEventListener('input', liveFilterSearch);
-
-function liveFilterSearch(event) {
+$searchForm.addEventListener('input', function (event) {
   if ($searchForm.elements.search.value === '') {
     $clearFormLink.className = 'clear hidden';
   } else {
@@ -290,8 +280,7 @@ function liveFilterSearch(event) {
 
   searchQuery(liveKey);
   hiddenList();
-
-}
+});
 
 function hiddenList() {
   var $liHidden = document.querySelectorAll('li');
@@ -307,9 +296,7 @@ function hiddenList() {
   }
 }
 
-$clearFormLink.addEventListener('click', clearSearchBar);
-
-function clearSearchBar(event) {
+$clearFormLink.addEventListener('click', function (event) {
   $clearFormLink.className = 'clear hidden';
   var $li = document.querySelectorAll('li');
   for (var index = 0; index < $li.length; index++) {
@@ -317,8 +304,7 @@ function clearSearchBar(event) {
   }
   $searchForm.reset();
   hiddenList();
-
-}
+});
 
 function searchQuery(characters) {
 
