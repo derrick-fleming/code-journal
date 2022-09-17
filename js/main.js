@@ -257,7 +257,6 @@ function noOutline(event) {
 // Search Functions
 
 $searchForm.addEventListener('submit', filterSearchResults);
-var $noSearch = document.querySelector('#no-search');
 
 function filterSearchResults(event) {
   event.preventDefault();
@@ -265,28 +264,18 @@ function filterSearchResults(event) {
   filterData = filterData.toLowerCase();
   filterData = filterData.split(' ');
 
-  var $li = document.querySelectorAll('li');
-
-  for (var invisibleLi = 0; invisibleLi < $li.length; invisibleLi++) {
-    $li[invisibleLi].className = 'row hidden';
-  }
-
-  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
-    var title = data.entries[dataIndex].title.toLowerCase();
-    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    for (var filterIndex = 0; filterIndex < filterData.length; filterIndex++) {
-      if (title.includes(filterData[filterIndex]) || textEntry.includes(filterData[filterIndex])) {
-        for (var indexLi = 0; indexLi < $li.length; indexLi++) {
-          if (Number($li[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-            $li[indexLi].className = 'row';
-          }
-        }
-      }
-    }
-  }
+  searchQuery(filterData);
   hiddenList();
 }
 
+$searchForm.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    filterSearchResults(event);
+  }
+});
+
+var $noSearch = document.querySelector('#no-search');
 $searchForm.addEventListener('input', liveFilterSearch);
 
 function liveFilterSearch(event) {
@@ -297,6 +286,7 @@ function liveFilterSearch(event) {
   }
 
   var liveKey = event.target.value.toLowerCase();
+  liveKey = liveKey.split(' ');
 
   searchQuery(liveKey);
   hiddenList();
@@ -330,22 +320,22 @@ function clearSearchBar(event) {
 
 }
 
-function searchQuery(argument) {
+function searchQuery(characters) {
+
   var $liSearch = document.querySelectorAll('li');
+  for (var indexLi = 0; indexLi < $liSearch.length; indexLi++) {
+    $liSearch[indexLi].className = 'row';
+  }
 
   for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
     var title = data.entries[dataIndex].title.toLowerCase();
     var textEntry = data.entries[dataIndex].textArea.toLowerCase();
-    if (!title.includes(argument) && !textEntry.includes(argument)) {
-      for (var indexLi = 0; indexLi < $liSearch.length; indexLi++) {
-        if (Number($liSearch[indexLi].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $liSearch[indexLi].className = 'row hidden';
-        }
-      }
-    } else {
-      for (var index = 0; index < $liSearch.length; index++) {
-        if (Number($liSearch[index].dataset.entryId) === data.entries[dataIndex].entryNumber) {
-          $liSearch[index].className = 'row';
+    for (var keyIndex = 0; keyIndex < characters.length; keyIndex++) {
+      if (!title.includes(characters[keyIndex]) && !textEntry.includes(characters[keyIndex])) {
+        for (var i = 0; i < $liSearch.length; i++) {
+          if (Number($liSearch[i].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+            $liSearch[i].className = 'row hidden';
+          }
         }
       }
     }
