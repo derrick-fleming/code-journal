@@ -3,6 +3,11 @@ var $entries = document.querySelector('#entries');
 var $placeHolderImage = document.querySelector('.placeholder-image');
 var $photoUrlInput = document.querySelector("input[name='photoUrl']");
 var $noEntries = document.querySelector('#no-entries');
+var $searchForm = document.querySelector('#search-bar-form');
+var $clearFormLink = document.querySelector('.clear.hidden');
+var $entriesLink = document.querySelector('.nav-link');
+var $newEntry = document.querySelector('.button.entry');
+var $ul = document.querySelector('ul');
 
 $photoUrlInput.addEventListener('input', photoUpload);
 
@@ -115,7 +120,6 @@ function entryDomTree(entry) {
 
 }
 
-var $ul = document.querySelector('ul');
 document.addEventListener('DOMContentLoaded', appendJournal);
 
 function appendJournal(event) {
@@ -123,9 +127,6 @@ function appendJournal(event) {
     $ul.appendChild(entryDomTree(data.entries[i]));
   }
 }
-
-var $entriesLink = document.querySelector('.nav-link');
-var $newEntry = document.querySelector('.button.entry');
 
 $entriesLink.addEventListener('click', allEntriesView);
 $newEntry.addEventListener('click', newEntryView);
@@ -142,7 +143,15 @@ function allEntriesView(event) {
   $codeJournal.className = 'row hidden';
   data.view = 'entries';
   $entries.className = '';
+  $searchForm.reset();
+  var $li = document.querySelectorAll('li');
+  for (var index = 0; index < $li.length; index++) {
+    $li[index].className = 'row';
+  }
+  $noSearch.className = 'column-full hidden';
+
 }
+
 var $delete = document.querySelector('.delete.hidden');
 
 function newEntryView(event) {
@@ -227,4 +236,94 @@ function deleteEntry(event) {
     $noEntries.className = 'column-full';
   }
   data.editing = null;
+}
+
+var $searchFormContainer = document.querySelector('.form-container');
+var $searchBar = document.querySelector('.search-row');
+
+$searchBar.addEventListener('focus', function (event) {
+  $searchFormContainer.className = 'form-container search-focus';
+});
+
+$searchBar.addEventListener('blur', function (event) {
+  $searchFormContainer.className = 'form-container';
+});
+
+$searchForm.addEventListener('submit', filterSearchResults);
+
+function filterSearchResults(event) {
+  event.preventDefault();
+  var filterData = $searchForm.elements.search.value;
+  filterData = filterData.toLowerCase();
+  filterData = filterData.split(' ');
+
+  searchQuery(filterData);
+  hiddenList();
+}
+
+$searchForm.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    filterSearchResults(event);
+  }
+});
+
+var $noSearch = document.querySelector('#no-search');
+$searchForm.addEventListener('input', function (event) {
+  if ($searchForm.elements.search.value === '') {
+    $clearFormLink.className = 'clear hidden';
+  } else {
+    $clearFormLink.className = 'clear';
+  }
+
+  var liveKey = event.target.value.toLowerCase();
+  liveKey = liveKey.split(' ');
+
+  searchQuery(liveKey);
+  hiddenList();
+});
+
+function hiddenList() {
+  var $liHidden = document.querySelectorAll('li');
+  var $hiddenList = document.querySelectorAll('li.row.hidden');
+  if ($hiddenList.length === $liHidden.length) {
+    $noSearch.className = 'column-full';
+  } else {
+    $noSearch.className = 'column-full hidden';
+  }
+
+  if ($liHidden.length === 0) {
+    $noSearch.className = 'column-full hidden';
+  }
+}
+
+$clearFormLink.addEventListener('click', function (event) {
+  $clearFormLink.className = 'clear hidden';
+  var $li = document.querySelectorAll('li');
+  for (var index = 0; index < $li.length; index++) {
+    $li[index].className = 'row';
+  }
+  $searchForm.reset();
+  hiddenList();
+});
+
+function searchQuery(characters) {
+
+  var $liSearch = document.querySelectorAll('li');
+  for (var indexLi = 0; indexLi < $liSearch.length; indexLi++) {
+    $liSearch[indexLi].className = 'row';
+  }
+
+  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
+    var title = data.entries[dataIndex].title.toLowerCase();
+    var textEntry = data.entries[dataIndex].textArea.toLowerCase();
+    for (var keyIndex = 0; keyIndex < characters.length; keyIndex++) {
+      if (!title.includes(characters[keyIndex]) && !textEntry.includes(characters[keyIndex])) {
+        for (var i = 0; i < $liSearch.length; i++) {
+          if (Number($liSearch[i].dataset.entryId) === data.entries[dataIndex].entryNumber) {
+            $liSearch[i].className = 'row hidden';
+          }
+        }
+      }
+    }
+  }
 }

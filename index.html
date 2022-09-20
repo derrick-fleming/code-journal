@@ -69,6 +69,20 @@
             <h1 class="inline">Entries</h1>
             <a class="button entry" href="#">NEW</a>
           </div>
+          <div class="column-full space">
+            <div class="form-container">
+              <form id="search-bar-form" class="row">
+                <input type="text" id="search" name="search-text" class="search-row" placeholder="Search Entries" required>
+                <button type="submit" form="search-bar-form" class="search-button "><a class="icon-search fa-solid fa-magnifying-glass"></a></button>
+              </form>
+            </div>
+            <div class="clear-box">
+              <a class="clear hidden">Clear Results</a>
+            </div>
+            <div class="column-full hidden" id="no-search">
+              <p class="no-entry-text">No Entries Found.<p>
+            </div>
+          </div>
           <div class="column-full" id="no-entries">
             <p class="no-entry-text">No entries have been recorded.</p>
           </div>
